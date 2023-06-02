@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +21,13 @@ public class Clima {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_clima;
 
+    @NotBlank
     private String clima;
+    
+    @NotBlank
     private String descricao;
+    
+    @NotBlank
     private int temperatura;
     
 }
