@@ -26,7 +26,6 @@ import com.example.mygreen.exceptions.RestNotFoundException;
 import com.example.mygreen.models.Planta;
 import com.example.mygreen.repositories.PlantaRepository;
 
-// import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 
 @RestController

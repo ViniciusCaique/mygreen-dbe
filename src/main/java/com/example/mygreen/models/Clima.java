@@ -1,5 +1,12 @@
 package com.example.mygreen.models;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import com.example.mygreen.controllers.ClimaController;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,5 +36,14 @@ public class Clima {
     
     @NotBlank
     private int temperatura;
-    
+
+    public EntityModel<Clima> toEntityModel() {
+        return EntityModel.of(
+            this,
+            linkTo(methodOn(ClimaController.class).show(id_clima)).withSelfRel(),
+            linkTo(methodOn(ClimaController.class).index(null, Pageable.unpaged())).withRel("all"),
+            linkTo(methodOn(ClimaController.class).show(id_clima)).withRel("destroy")
+        );
+    }
+
 }
