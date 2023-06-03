@@ -28,6 +28,13 @@ import com.example.mygreen.repositories.PlantaRepository;
 
 import jakarta.validation.Valid;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "Planta")
 @RestController
 @RequestMapping("/api/plantas")
 public class PlantaController {

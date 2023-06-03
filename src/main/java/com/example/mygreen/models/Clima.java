@@ -28,13 +28,13 @@ public class Clima {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_clima;
 
-    @NotBlank
+    // @NotBlank
     private String clima;
     
-    @NotBlank
+    // @NotBlank
     private String descricao;
     
-    @NotBlank
+    // @NotBlank
     private int temperatura;
 
     public EntityModel<Clima> toEntityModel() {

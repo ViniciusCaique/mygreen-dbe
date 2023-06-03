@@ -32,13 +32,13 @@ public class Plantacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_plantacao;
 
-    @NotBlank
+    // @NotBlank
     private LocalDate dataPlantacao;
     
-    @NotBlank
+    // @NotBlank
     private int quantidadeAgua;
     
-    @NotBlank
+    // @NotBlank
     private Boolean fertilizante;
 
     @ManyToOne

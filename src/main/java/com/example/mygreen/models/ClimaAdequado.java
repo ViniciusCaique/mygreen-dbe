@@ -34,10 +34,10 @@ public class ClimaAdequado {
     @JoinColumn(name = "id_planta")
     private Planta planta;
 
-    @NotBlank
+    // @NotBlank
     private String turno;
     
-    @NotBlank
+    // @NotBlank
     private LocalDate duracao;
 
     

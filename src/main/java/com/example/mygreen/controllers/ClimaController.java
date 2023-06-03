@@ -26,9 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.mygreen.exceptions.RestNotFoundException;
 import com.example.mygreen.models.Clima;
 import com.example.mygreen.repositories.ClimaRepository;
-
 import jakarta.validation.Valid;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "Clima")
 @RestController
 @RequestMapping("/api/climas")
 public class ClimaController {
