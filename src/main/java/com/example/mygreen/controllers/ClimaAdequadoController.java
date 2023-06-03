@@ -37,7 +37,7 @@ import jakarta.validation.Valid;
 @SecurityRequirement(name = "bearer-key")
 @Tag(name = "Clima Adequado")
 @RestController
-@RequestMapping("/api/plantas")
+@RequestMapping("/api/climaAdequado")
 public class ClimaAdequadoController {
 
 

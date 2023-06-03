@@ -95,7 +95,7 @@ public class PlantaController {
 
     @PutMapping("{id}")
     @Operation(
-        summary = "Atualizar Agencia.",
+        summary = "Atualizar Planta.",
         description = "" 
     )
     @ApiResponses({
@@ -112,7 +112,7 @@ public class PlantaController {
 
     @DeleteMapping("{id}")
     @Operation(
-        summary = "Deletar Agencia.",
+        summary = "Deletar Planta.",
         description = "" 
     )
     @ApiResponses({
