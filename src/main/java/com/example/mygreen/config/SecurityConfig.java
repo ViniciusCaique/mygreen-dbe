@@ -28,7 +28,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
                     .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
                     .anyRequest().authenticated()
-                )
+                )   
                 .csrf(csrf -> csrf.disable())
                 .formLogin(fLogin -> fLogin.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

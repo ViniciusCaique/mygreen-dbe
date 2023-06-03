@@ -16,6 +16,7 @@ import com.example.mygreen.repositories.ClimaAdequadoRepository;
 import com.example.mygreen.repositories.ClimaRepository;
 import com.example.mygreen.repositories.PlantaRepository;
 import com.example.mygreen.repositories.PlantacaoRepository;
+import com.example.mygreen.repositories.UsuarioRepository;
 
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner{
@@ -25,6 +26,9 @@ public class DatabaseSeeder implements CommandLineRunner{
 
     @Autowired
     ClimaAdequadoRepository climaAdequadoRepository;
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
     
     @Autowired
     PlantaRepository plantaRepository;
@@ -41,14 +45,14 @@ public class DatabaseSeeder implements CommandLineRunner{
 
         Planta planta1 = new Planta(1L, "Alface", "A alface é uma planta herbácea, com um caule diminuto ao qual se prendem as folhas", "comestível");
         Planta planta2 = new Planta(2L, "amoreira", "A amoreira é um árvore decídua, cujo fruto, a amora, é apreciado no mundo todo. Seu porte é médio, alcançando de 4 a 12 metros de altura.", "comestível");
-        Planta planta3 = new Planta(1L, "Limoeira", "O limoeiro, Citrus limon, é uma planta relativamente pequena e de copa arredondada", "comestível");
+        Planta planta3 = new Planta(3L, "Limoeira", "O limoeiro, Citrus limon, é uma planta relativamente pequena e de copa arredondada", "comestível");
         plantaRepository.saveAll(List.of(planta1, planta2, planta3));
 
 
-        // Usuario u1 = new Usuario(1L, "Fernando", "Fernando@gmail.com", "rM74%7^Ocnv%");
-        // Usuario u2 = new Usuario(2L, "Cesar", "Cesar@gmail.com", "w4B0!u4bA%&^");
-        // Usuario u3 = new Usuario(3L, "Carlos", "Carlos@gmail.com", "dK13z%w6$zXY");
-        // usuarioRepository.saveAll(List.of(u1, u2, u3));
+        Usuario u1 = new Usuario(1L, "Fernando", "Fernando@gmail.com", "rM74%7^Ocnv%");
+        Usuario u2 = new Usuario(2L, "Cesar", "Cesar@gmail.com", "w4B0!u4bA%&^");
+        Usuario u3 = new Usuario(3L, "Carlos", "Carlos@gmail.com", "dK13z%w6$zXY");
+        usuarioRepository.saveAll(List.of(u1, u2, u3));
 
 
         climaAdequadoRepository.saveAll(List.of(
@@ -57,12 +61,11 @@ public class DatabaseSeeder implements CommandLineRunner{
             ClimaAdequado.builder().clima(c3).planta(planta3).turno("noite").duracao(LocalDate.now()).build()
         ));
 
-        // plantacaoRepository.saveAll(List.of(
-        //     Plantacao.builder().dataPlantacao(LocalDate.now()).quantidadeAgua(15).fertilizante(true).usuario(u1).planta(planta1)
-        //     Plantacao.builder().dataPlantacao(LocalDate.now()).quantidadeAgua(100).fertilizante(false).usuario(u2).planta(planta2)
-        //     Plantacao.builder().dataPlantacao(LocalDate.now()).quantidadeAgua(50).fertilizante(true).usuario(u3).planta(planta3)
-        // ));
-
+        plantacaoRepository.saveAll(List.of(
+            Plantacao.builder().dataPlantacao(LocalDate.now()).quantidadeAgua(15).fertilizante(true).usuario(u1).planta(planta1).build(),
+            Plantacao.builder().dataPlantacao(LocalDate.now()).quantidadeAgua(100).fertilizante(false).usuario(u2).planta(planta2).build(),
+            Plantacao.builder().dataPlantacao(LocalDate.now()).quantidadeAgua(50).fertilizante(true).usuario(u3).planta(planta3).build()
+        ));
 
     }
 

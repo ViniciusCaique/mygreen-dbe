@@ -27,7 +27,9 @@ import com.example.mygreen.exceptions.RestNotFoundException;
 import com.example.mygreen.models.Clima;
 import com.example.mygreen.repositories.ClimaRepository;
 import jakarta.validation.Valid;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -48,6 +50,14 @@ public class ClimaController {
 
 
     @GetMapping
+    @Operation(
+        summary = "Detalhar Clima.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = ""),
+        @ApiResponse(responseCode = "404", description = "")
+    })
     public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @ParameterObject @PageableDefault(size = 10) Pageable pageable){
 
         Page<Clima> climas = climaRepository.findAll(pageable);
@@ -56,6 +66,14 @@ public class ClimaController {
     }
 
     @PostMapping
+    @Operation(
+        summary = "Cadastrar Clima.",
+        description = "Endpoint que recebe os parametros de registro de clima e cadastra um." 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Clima cadastrado com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Os campos enviados sao invalidos")
+    })
     public ResponseEntity<Clima> create(@RequestBody @Valid Clima clima){
         climaRepository.save(clima);
         return ResponseEntity.status(HttpStatus.CREATED).body(clima);
@@ -63,14 +81,30 @@ public class ClimaController {
 
         
     @GetMapping("{id}")
+    @Operation(
+        summary = "Detalhar Clima.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = ""),
+        @ApiResponse(responseCode = "404", description = "")
+    })
     public EntityModel<Clima> show(@PathVariable Long id){
-        var climas = climaRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Planta não encontrada"));
+        var climas = climaRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Clima não encontrado"));
         return climas.toEntityModel();
     }
 
     @PutMapping("{id}")
+    @Operation(
+        summary = "Atualizar Clima.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = ""),
+        @ApiResponse(responseCode = "400", description = "")
+    })
     public EntityModel<Clima> update(@PathVariable Long id, @RequestBody @Valid Clima clima){
-        climaRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Planta não encontrada"));
+        climaRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Clima não encontrada"));
 
         clima.setId_clima(id);
         climaRepository.save(clima);
@@ -79,10 +113,17 @@ public class ClimaController {
     }   
 
     @DeleteMapping("{id}")
+    @Operation(
+        summary = "Deletar Clima.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = ""),
+        @ApiResponse(responseCode = "401", description = "")
+    })
     public ResponseEntity<Clima> destroy(@PathVariable Long id){
-        var clima = climaRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Planta não encontrada"));
+        var clima = climaRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Plantação não encontrada"));
         climaRepository.delete(clima);
         return ResponseEntity.noContent().build();
     }
-
 }

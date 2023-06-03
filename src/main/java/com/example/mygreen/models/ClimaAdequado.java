@@ -2,6 +2,13 @@ package com.example.mygreen.models;
 
 import java.time.LocalDate;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import com.example.mygreen.controllers.ClimaAdequadoController;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,5 +47,13 @@ public class ClimaAdequado {
     // @NotBlank
     private LocalDate duracao;
 
+    public EntityModel<ClimaAdequado> toEntityModel() {
+        return EntityModel.of(
+            this,
+            linkTo(methodOn(ClimaAdequadoController.class).show(id_clima_adequado)).withSelfRel(),
+            linkTo(methodOn(ClimaAdequadoController.class).index(null, Pageable.unpaged())).withRel("all"),
+            linkTo(methodOn(ClimaAdequadoController.class).show(id_clima_adequado)).withRel("destroy")
+        );
+    }
     
 }

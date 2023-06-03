@@ -28,7 +28,9 @@ import com.example.mygreen.models.Plantacao;
 import com.example.mygreen.repositories.PlantacaoRepository;
 
 import jakarta.validation.Valid;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -51,6 +53,14 @@ public class PlantacaoController {
 
 
     @GetMapping
+    @Operation(
+        summary = "Detalhar Plantação.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = ""),
+        @ApiResponse(responseCode = "404", description = "")
+    })
     public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @ParameterObject @PageableDefault(size = 10) Pageable pageable){
 
         Page<Plantacao> plantacoes = plantacaoRepository.findAll(pageable);
@@ -60,6 +70,14 @@ public class PlantacaoController {
 
 
     @PostMapping
+    @Operation(
+        summary = "Cadastrar Plantação.",
+        description = "Endpoint que recebe os parametros de registro de plantação e cadastra uma." 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Plantação cadastrada com sucesso"),
+        @ApiResponse(responseCode = "400", description = "Os campos enviados sao invalidos")
+    })
     public ResponseEntity<Plantacao> create(@RequestBody @Valid Plantacao plantacao){
         plantacaoRepository.save(plantacao);
         return ResponseEntity.status(HttpStatus.CREATED).body(plantacao);
@@ -67,14 +85,30 @@ public class PlantacaoController {
 
     
     @GetMapping("{id}")
+    @Operation(
+        summary = "Detalhar Plantação.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = ""),
+        @ApiResponse(responseCode = "404", description = "")
+    })
     public EntityModel<Plantacao> show(@PathVariable Long id){
-        var plantacao = plantacaoRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Planta não encontrada"));
+        var plantacao = plantacaoRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Plantação não encontrada"));
         return plantacao.toEntityModel();
     }
 
     @PutMapping("{id}")
+    @Operation(
+        summary = "Atualizar Plantação.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = ""),
+        @ApiResponse(responseCode = "400", description = "")
+    })
     public EntityModel<Plantacao> update(@PathVariable Long id, @RequestBody @Valid Plantacao plantacao){
-        plantacaoRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Planta não encontrada"));
+        plantacaoRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Plantação não encontrada"));
 
         plantacao.setId_plantacao(id);
         plantacaoRepository.save(plantacao);
@@ -84,8 +118,16 @@ public class PlantacaoController {
 
 
     @DeleteMapping("{id}")
+    @Operation(
+        summary = "Deletar Plantação.",
+        description = "" 
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "204", description = ""),
+        @ApiResponse(responseCode = "401", description = "")
+    })
     public ResponseEntity<Plantacao> destroy(@PathVariable Long id){
-        var plantacao = plantacaoRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Planta não encontrada"));
+        var plantacao = plantacaoRepository.findById(id).orElseThrow(() -> new RestNotFoundException("Plantação não encontrada"));
         plantacaoRepository.delete(plantacao);
         return ResponseEntity.noContent().build();
     }
