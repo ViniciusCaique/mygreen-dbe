@@ -17,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,12 @@ public class ClimaAdequado {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_clima_adequado;
 
+    @NotBlank
+    private String turno;
+    
+    @NotNull
+    private LocalDate duracao;
+
     @ManyToOne
     @JoinColumn(name = "id_clima")
     private Clima clima;    
@@ -40,12 +47,6 @@ public class ClimaAdequado {
     @ManyToOne
     @JoinColumn(name = "id_planta")
     private Planta planta;
-
-    // @NotBlank
-    private String turno;
-    
-    // @NotBlank
-    private LocalDate duracao;
 
     public EntityModel<ClimaAdequado> toEntityModel() {
         return EntityModel.of(
