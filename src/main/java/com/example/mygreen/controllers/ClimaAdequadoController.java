@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.mygreen.config.RestExceptionHandler;
 import com.example.mygreen.exceptions.RestNotFoundException;
 import com.example.mygreen.models.ClimaAdequado;
 import com.example.mygreen.repositories.ClimaAdequadoRepository;
@@ -124,6 +123,5 @@ public class ClimaAdequadoController {
         var climaAdequado = climaAdequadoRepository.findById(id).orElseThrow(()-> new RestNotFoundException("Clima adequado não encontrado"));
         climaAdequadoRepository.delete(climaAdequado);
         return ResponseEntity.noContent().build();
-        
     }
 }

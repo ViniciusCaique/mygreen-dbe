@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,12 +33,15 @@ public class Usuario implements UserDetails {
     private Long id_usuario;
 
     @NotBlank
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String nome;
 
     @Email
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String email;
 
     @NotBlank @Size(min = 5, max = 20)
+    @JsonProperty(access = Access.WRITE_ONLY)
     private String senha;
 
     @Override
